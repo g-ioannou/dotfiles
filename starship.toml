@@ -1,0 +1,9 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+[python]
+format = "[$symbol$version]($style) haha"
+style = "bold green"
+
+format = """
+
+\$"""
