@@ -1,8 +1,6 @@
-    
-
 return {
 	"hrsh7th/nvim-cmp",
-	event = "InsertEnter",
+	event = { "InsertEnter", "CmdlineEnter" },
 	dependencies = {
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
@@ -17,8 +15,8 @@ return {
 
 		cmp.setup({
 			completion = {
-                completeopt = 'menu,menuone,noinsert',
-                keyword_length = 3
+				completeopt = "menu,noselect,menuone,noinsert",
+				keyword_length = 2,
 			},
 
 			snippet = {
@@ -41,15 +39,26 @@ return {
 				{ name = "buffer" },
 				{ name = "path" },
 			}),
-            window = {
-                completion = {
-                    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-                    winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
-                },
-                documentation = {
-                    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-                    winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
-                }, }
+			sorting = {
+				comparators = {
+					cmp.config.compare.exact,
+					cmp.config.compare.sort_text,
+					cmp.config.compare.scopes,
+					cmp.config.compare.recently_used,
+					require("cmp-under-comparator").under,
+					cmp.config.compare.kind,
+				},
+			},
+			window = {
+				completion = {
+					border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+					winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
+				},
+				documentation = {
+					border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+					winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
+				},
+			},
 		})
 	end,
 }

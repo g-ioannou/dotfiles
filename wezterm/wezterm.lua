@@ -1,4 +1,6 @@
 local wezterm = require("wezterm")
+local act = wezterm.action
+
 local config = {}
 
 if wezterm.config_builder then
@@ -7,25 +9,30 @@ end
 
 local colors = require("lua/rose-pine").colors()
 
---config.color_scheme = "Catppuccin Mocha"
-
 config.colors = colors
+config.audible_bell = "Disabled"
 
 config.use_fancy_tab_bar = false
+config.enable_tab_bar = false
 
 config.font_size = 20.0
 
 config.window_padding = {
-	left = 0,
-	right = 0,
 	top = 0,
 	bottom = 0,
+	left = 4,
+	right = 4,
 }
 
-config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 config.window_background_opacity = 0.80
-config.enable_tab_bar = false
 
 config.macos_window_background_blur = 60
+
+config.keys = {
+	{ key = "UpArrow", mods = "SHIFT", action = act.ScrollByLine(-1) },
+	{ key = "DownArrow", mods = "SHIFT", action = act.ScrollByLine(1) },
+	{ key = "PageUp", action = act.ScrollByPage(-0.5) },
+	{ key = "PageDown", action = act.ScrollByPage(0.5) },
+}
 
 return config
