@@ -11,9 +11,6 @@ vim.keymap.set("n", "<leader>h", "<C-w>h")
 
 vim.keymap.set("n", "<C-w>", vim.cmd.q, { noremap = true })
 vim.keymap.set("n", "<C-s>", vim.cmd.w, { noremap = true })
-vim.keymap.set("n", "<C-W>", function()
-	vim.cmd("q!")
-end, { noremap = true })
 
 vim.keymap.set("n", "<C-d>", function()
 	vim.cmd([[vnew]])
@@ -25,7 +22,7 @@ vim.keymap.set("n", "<C-d>", function()
 	})
 end, { noremap = true })
 
-vim.keymap.set("n", "<C-D>", function()
+vim.keymap.set("n", "<C-a>", function()
 	vim.cmd([[new]])
 
 	require("telescope.builtin").find_files({

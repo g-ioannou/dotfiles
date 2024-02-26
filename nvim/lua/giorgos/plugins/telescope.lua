@@ -24,8 +24,8 @@ return {
 			builtin.current_buffer_fuzzy_find()
 		end, {})
 
-		vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-		vim.keymap.set("n", "<leader>fg", builtin.git_files, {})
+		vim.keymap.set("n", "<C-b>", builtin.buffers, {})
+		vim.keymap.set("n", "<C-f>", builtin.git_files, {})
 
 		telescope.setup({
 			defaults = {

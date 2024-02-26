@@ -1,0 +1,11 @@
+*
+/*
+
+!.gitignore
+
+!wezterm/*
+!nvim/*
+
+!.tmux.conf
+!starship.toml
+
