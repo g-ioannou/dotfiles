@@ -26,3 +26,5 @@ vim.opt.splitbelow = true
 vim.opt.swapfile = false
 
 vim.opt.backspace = "indent,eol,start"
+
+vim.opt.scrolloff = 10

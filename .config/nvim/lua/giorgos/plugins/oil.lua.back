@@ -1,0 +1,95 @@
+return {
+	{
+		"SirZenith/oil-vcs-status",
+		config = function()
+			local status_const = require("oil-vcs-status.constant.status")
+
+			local StatusType = status_const.StatusType
+
+			require("oil-vcs-status").setup({
+				status_symbol = {
+					[StatusType.Added] = "",
+					[StatusType.Copied] = "󰆏",
+					[StatusType.Deleted] = "",
+					[StatusType.Ignored] = "",
+					[StatusType.Modified] = "",
+					[StatusType.Renamed] = "",
+					[StatusType.TypeChanged] = "󰉺",
+					[StatusType.Unmodified] = " ",
+					[StatusType.Unmerged] = "",
+					[StatusType.Untracked] = "",
+					[StatusType.External] = "",
+
+					[StatusType.UpstreamAdded] = "󰈞",
+					[StatusType.UpstreamCopied] = "󰈢",
+					[StatusType.UpstreamDeleted] = "",
+					[StatusType.UpstreamIgnored] = " ",
+					[StatusType.UpstreamModified] = "󰏫",
+					[StatusType.UpstreamRenamed] = "",
+					[StatusType.UpstreamTypeChanged] = "󱧶",
+					[StatusType.UpstreamUnmodified] = " ",
+					[StatusType.UpstreamUnmerged] = "",
+					[StatusType.UpstreamUntracked] = " ",
+					[StatusType.UpstreamExternal] = "",
+				},
+			})
+		end,
+	},
+	{
+		"stevearc/oil.nvim",
+		opts = {
+			keymaps = {
+				["<C-w>"] = "actions.close",
+				["<C-d>"] = "actions.select_vsplit",
+				["<C-a>"] = "actions.select_split",
+				["<C-t>"] = "actions.toggle_trash",
+				["<C-r>"] = "actions.refresh",
+				["<C-p>"] = nil,
+				["<C-h>"] = nil,
+				["<C-l>"] = nil,
+				["<C-k>"] = nil,
+				["<C-j>"] = nil,
+			},
+			float = {
+				win_options = {
+					signcolumn = "number",
+				},
+			},
+		},
+		config = function()
+			local oil = require("oil")
+
+			oil.setup({
+				default_file_explorer = true,
+				columns = {
+					"icon",
+					"size",
+					"permissions",
+					"mtime",
+					"type",
+				},
+				contain_cursor = "editable",
+				delete_to_trash = true,
+				skip_confirm_for_simple_edits = true,
+				win_options = {
+					wrap = false,
+					signcolumn = "yes:3",
+					cursorcolumn = false,
+					foldcolumn = "0",
+					spell = false,
+					list = false,
+					conceallevel = 3,
+					concealcursor = "nvic",
+				},
+			})
+
+			vim.keymap.set("n", "<leader>e", function()
+				oil.toggle_float()
+			end)
+
+			vim.keymap.set("n", "<leader>e", function()
+				oil.toggle_float()
+			end)
+		end,
+	},
+}
