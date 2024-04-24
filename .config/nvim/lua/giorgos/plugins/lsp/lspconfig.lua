@@ -27,6 +27,10 @@ return {
 
 				opts.desc = "Show LSP definitions"
 				vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+				opts.desc = "Show LSP definitions"
+				vim.keymap.set("n", "gs", "<cmd>sp<CR><cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions in new horizontal split
+				opts.desc = "Show LSP definitions"
+				vim.keymap.set("n", "gv", "<cmd>vsp<CR><cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions in new vertical split
 
 				opts.desc = "Show LSP implementations"
 				vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
