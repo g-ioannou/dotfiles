@@ -15,6 +15,9 @@ require("lazy").setup({ { import = "giorgos.plugins" }, { import = "giorgos.plug
 	install = {
 		colorscheme = { "rose-pine" },
 	},
+	ui = {
+		border = "rounded",
+	},
 	checker = {
 		enabled = true,
 		notify = false,

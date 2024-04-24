@@ -1,10 +1,17 @@
 return {
-	{ "nvim-telescope/telescope-file-browser.nvim" },
 	{
 		"nvim-telescope/telescope.nvim",
 		bdranch = "0.1.x",
 		dependencies = {
-			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+			{
+				"nvim-telescope/telescope-file-browser.nvim",
+				"nvim-telescope/telescope-fzf-native.nvim",
+				"debugloop/telescope-undo.nvim",
+				build = "make",
+				cond = function()
+					return vim.fn.executable("make") == 1
+				end,
+			},
 			"nvim-tree/nvim-web-devicons",
 		},
 		config = function()
@@ -14,8 +21,27 @@ return {
 			local fb_actions = require("telescope._extensions.file_browser.actions")
 
 			telescope.setup({
-				theme = "center",
+				defaults = {
+					theme = "center",
+					sorting_strategy = "ascending",
+					layout_config = {
+						horizontal = {
+							prompt_position = "top",
+						},
+					},
+				},
 				extensions = {
+					undo = {
+						use_delta = true,
+						side_by_side = true,
+						layout_strategy = "vertical",
+						layout_config = {
+							vertical = {
+								prompt_position = "top",
+							},
+							preview_height = 0.5,
+						},
+					},
 					file_browser = {
 						path = vim.loop.cwd(),
 						cwd = vim.loop.cwd(),
@@ -24,7 +50,6 @@ return {
 						files = true,
 						add_dirs = true,
 						depth = 1,
-						auto_depth = true,
 						select_buffer = false,
 						hidden = { file_browser = true, folder_browser = true },
 						respect_gitignore = vim.fn.executable("fd") == 1,
@@ -32,7 +57,7 @@ return {
 						follow_symlinks = true,
 						browse_files = require("telescope._extensions.file_browser.finders").browse_files,
 						browse_folders = require("telescope._extensions.file_browser.finders").browse_folders,
-						hide_parent_dir = false,
+						hide_parent_dir = true,
 						collapse_dirs = true,
 						prompt_path = false,
 						quiet = false,
@@ -108,9 +133,12 @@ return {
 				telescope.extensions.file_browser.file_browser()
 			end)
 
+			vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
+
 			telescope.load_extension("fzf")
 			telescope.load_extension("harpoon")
 			telescope.load_extension("file_browser")
+			telescope.load_extension("undo")
 		end,
 	},
 }
