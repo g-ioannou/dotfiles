@@ -105,6 +105,8 @@ return {
 				},
 			})
 
+			local utils = require("telescope.utils")
+
 			vim.keymap.set("n", "<C-p>", function()
 				builtin.find_files({
 					file_ignore_patterns = {
@@ -120,6 +122,7 @@ return {
 						"dist/",
 						".svelte-kit/",
 					},
+					cwd = vim.fn.getcwd(),
 					hidden = true,
 					no_ignore = true,
 				})
