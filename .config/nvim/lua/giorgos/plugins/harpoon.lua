@@ -5,7 +5,11 @@ return {
 	config = function()
 		local harpoon = require("harpoon")
 
-		harpoon:setup()
+		harpoon:setup({
+			settings = {
+				save_on_toggle = true,
+			},
+		})
 
 		local conf = require("telescope.config").values
 		local actions = require("telescope.actions")
@@ -26,21 +30,33 @@ return {
 					previewer = conf.file_previewer({}),
 					sorter = conf.generic_sorter({}),
 					attach_mappings = function(_, map)
-						map({ "n", "i" }, "<leader>hr", function(prompt_buffer)
+						map({ "n", "i" }, "d", function(prompt_buffer)
 							local current_picker = action_state.get_current_picker(prompt_buffer)
 
 							current_picker:delete_selection(function(selection)
-								harpoon:list():removeAt(selection.index)
+								harpoon:list():remove_at(selection.index)
 							end)
 						end)
+						return true
 					end,
 				})
 				:find()
 		end
 
 		vim.keymap.set("n", "<leader>h", function()
-			harpoon.ui:toggle_quick_menu(harpoon:list())
+			harpoon.ui:toggle_quick_menu(
+				harpoon:list(),
+				{
+					title = "Pinned buffers",
+					title_pos = "center",
+					border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+				}
+			)
 		end)
+
+		--	vim.keymap.set("n", "<leader>h", function()
+		--		toggle_telescope(harpoon:list())
+		--	end)
 
 		vim.keymap.set("n", "<leader>n", function()
 			harpoon:list():append()
