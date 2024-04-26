@@ -25,10 +25,10 @@ vim.keymap.set("n", "<C-a>", function()
 	})
 end, { noremap = true })
 
-vim.keymap.set("n", "<leader>+", "<C-w>5+")
-vim.keymap.set("n", "<leader>-", "<C-w>5-")
-vim.keymap.set("n", "<leader>.", "<C-w>5>")
-vim.keymap.set("n", "<leader>,", "<C-w>5<")
+vim.keymap.set("n", "<leader>+", "<C-w>10+")
+vim.keymap.set("n", "<leader>-", "<C-w>10-")
+vim.keymap.set("n", "<leader>.", "<C-w>10>")
+vim.keymap.set("n", "<leader>,", "<C-w>10<")
 
 -- move highlighted selection using J,K
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")

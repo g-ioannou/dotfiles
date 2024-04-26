@@ -38,7 +38,9 @@ return {
 		config = function()
 			local handler = function(virtText, lnum, endLnum, width, truncate)
 				local newVirtText = {}
-				local suffix = (" 󰁂 %d "):format(endLnum - lnum)
+				local totalLines = vim.api.nvim_buf_line_count(0)
+				local foldedLines = endLnum - lnum
+				local suffix = (" 󱞣  %d lines - %d%% of file"):format(foldedLines, foldedLines / totalLines * 100)
 				local sufWidth = vim.fn.strdisplaywidth(suffix)
 				local targetWidth = width - sufWidth
 				local curWidth = 0
@@ -60,17 +62,24 @@ return {
 					end
 					curWidth = curWidth + chunkWidth
 				end
+				local rAlignAppndx = math.max(math.min(vim.opt.textwidth["_value"], width - 1) - curWidth - sufWidth, 0)
+				suffix = (" "):rep(rAlignAppndx) .. suffix
 				table.insert(newVirtText, { suffix, "MoreMsg" })
 				return newVirtText
 			end
-
+			-- TODO
 			require("ufo").setup({
 				fold_virt_text_handler = handler,
+				open_fold_hl_timeout = 0,
 				provider_selector = function(bufnr, filetype, buftype)
 					return { "treesitter", "indent" }
 				end,
 			})
+			vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+			vim.o.foldlevelstart = 99
+			vim.o.foldenable = true
 
+			vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 			vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 			vim.keymap.set("n", "zR", require("ufo").openAllFolds)
 		end,
