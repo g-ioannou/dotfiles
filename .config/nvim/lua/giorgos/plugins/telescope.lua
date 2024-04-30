@@ -6,7 +6,6 @@ return {
 			{
 				"nvim-telescope/telescope-file-browser.nvim",
 				"nvim-telescope/telescope-fzf-native.nvim",
-				"debugloop/telescope-undo.nvim",
 				build = "make",
 				cond = function()
 					return vim.fn.executable("make") == 1
@@ -31,17 +30,6 @@ return {
 					},
 				},
 				extensions = {
-					undo = {
-						use_delta = true,
-						side_by_side = true,
-						layout_strategy = "vertical",
-						layout_config = {
-							vertical = {
-								prompt_position = "top",
-							},
-							preview_height = 0.5,
-						},
-					},
 					file_browser = {
 						path = vim.loop.cwd(),
 						cwd = vim.loop.cwd(),
@@ -136,12 +124,9 @@ return {
 				telescope.extensions.file_browser.file_browser()
 			end)
 
-			vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
-
 			telescope.load_extension("fzf")
 			telescope.load_extension("harpoon")
 			telescope.load_extension("file_browser")
-			telescope.load_extension("undo")
 		end,
 	},
 }
