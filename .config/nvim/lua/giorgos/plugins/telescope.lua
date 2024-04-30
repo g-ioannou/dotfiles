@@ -109,6 +109,7 @@ return {
 						"build/",
 						"dist/",
 						".svelte-kit/",
+						"docker-data/",
 					},
 					cwd = vim.fn.getcwd(),
 					hidden = true,
