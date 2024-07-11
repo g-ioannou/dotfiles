@@ -69,6 +69,6 @@ return {
 		-- set keymaps
 		local keymap = vim.keymap -- for conciseness
 
-		keymap.set("n", "<leader>;", "<cmd>NvimTreeToggle<CR>")
+		keymap.set("n", "<C-b>", "<cmd>NvimTreeToggle<CR>")
 	end,
 }

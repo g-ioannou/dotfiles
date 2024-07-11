@@ -4,6 +4,8 @@ $git_branch\
 $git_state\
 $git_status\
 $fill\
+$python\
+$nodejs\
 $cmd_duration\
 $time\
 $line_break\
@@ -44,5 +46,14 @@ show_milliseconds=true
 format=" [$duration]($style) "
 style="#767676" # grey
 
+[python]
+format="[${symbol} (${pyenv_prefix})(${version})({$virtualenv})]($style) "
+symbol=' '
+style="blue bold"
+pyenv_version_name=true
+pyenv_prefix='pyenv '
+
+[nodejs]
+format='[$symbol($version)]($style) '
 
 

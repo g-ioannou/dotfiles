@@ -25,7 +25,6 @@ return {
 				"tsserver",
 				"html",
 				"cssls",
-				"tailwindcss",
 				"svelte",
 				"lua_ls",
 				"emmet_ls",

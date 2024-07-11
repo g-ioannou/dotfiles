@@ -121,13 +121,13 @@ return {
 
 			vim.keymap.set("n", "<C-f>", builtin.git_files, {})
 
-			vim.keymap.set("n", "<C-b>", function()
-				telescope.extensions.file_browser.file_browser()
-			end)
+			--			vim.keymap.set("n", "<C-b>", function()
+			--				telescope.extensions.file_browser.file_browser()
+			--			end)
 
 			telescope.load_extension("fzf")
 			telescope.load_extension("harpoon")
-			telescope.load_extension("file_browser")
+			--			telescope.load_extension("file_browser")
 		end,
 	},
 }
