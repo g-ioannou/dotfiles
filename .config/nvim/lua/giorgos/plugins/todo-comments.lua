@@ -23,7 +23,7 @@ return {
 	config = function(_, opts)
 		require("todo-comments").setup(opts)
 
-		vim.keymap.set("n", "<C-c>", function()
+		vim.keymap.set("n", "<leader>c", function()
 			vim.cmd([[TodoTelescope keywords=TODO]])
 		end)
 	end,

@@ -15,7 +15,7 @@ return {
 		vim.g.db_ui_use_nerd_fonts = 1
 	end,
 	config = function()
-		vim.keymap.set("n", "<leader>db", function()
+		vim.keymap.set("n", "<leader>dad", function()
 			vim.cmd([[DBUIToggle]])
 		end, { noremap = true })
 	end,

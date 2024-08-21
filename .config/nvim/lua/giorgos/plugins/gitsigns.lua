@@ -44,9 +44,6 @@ return {
 				row = 0,
 				col = 1,
 			},
-			yadm = {
-				enable = false,
-			},
 			on_attach = function()
 				--				vim.keymap.set("v", "<leader>ghs", function()
 				--					gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })

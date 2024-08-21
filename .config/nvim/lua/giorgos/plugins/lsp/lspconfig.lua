@@ -4,7 +4,24 @@ return {
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
-		{ "folke/neodev.nvim", opts = {} },
+		{
+			"folke/lazydev.nvim",
+			ft = "lua",
+			opts = {
+				library = { "luvit-meta/library", words = { "vim%.uv" } },
+			},
+		},
+		{ "Bilal2453/luvit-meta", lazy = true },
+		{ -- optional completion source for require statements and module annotations
+			"hrsh7th/nvim-cmp",
+			opts = function(_, opts)
+				opts.sources = opts.sources or {}
+				table.insert(opts.sources, {
+					name = "lazydev",
+					group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+				})
+			end,
+		},
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
@@ -38,10 +55,14 @@ return {
 
 				opts.desc = "Show LSP definitions"
 				vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
-				opts.desc = "Show LSP definitions"
-				vim.keymap.set("n", "gs", "<cmd>sp<CR><cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions in new horizontal split
-				opts.desc = "Show LSP definitions"
-				vim.keymap.set("n", "gv", "<cmd>vsp<CR><cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions in new vertical split
+
+				opts.desc = "Go to lsp definition in horizontal split"
+				vim.keymap.set("n", "ga", "<cmd>sp<CR><cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions in new horizontal split
+
+				opts.desc = "Go to lsp definition in horizontal split"
+				vim.keymap.set("n", "gA", "<cmd>vsp<CR><cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions in new vertical split
+
+				vim.keymap.set("n", "<leader>qf", vim.diagnostic.setloclist, { desc = "Open diagnostic quickfix list" })
 
 				opts.desc = "Show LSP implementations"
 				vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
@@ -91,19 +112,34 @@ return {
 					capabilities = capabilities,
 				})
 			end,
+			["tailwindcss"] = function()
+				lspconfig["tailwindcss"].setup({ capabilities = capabilities })
+			end,
 			["svelte"] = function()
 				-- configure svelte server
 				lspconfig["svelte"].setup({
 					capabilities = capabilities,
-					on_attach = function(client, bufnr)
-						vim.api.nvim_create_autocmd("BufWritePost", {
-							pattern = { "*.js", "*.ts" },
-							callback = function(ctx)
-								-- Here use ctx.match instead of ctx.file
-								client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-							end,
-						})
-					end,
+					--	on_attach = function(client, bufnr)
+					--		vim.api.nvim_create_autocmd("BufWritePost", {
+					--			pattern = { "*.js", "*.ts" },
+					--			callback = function(ctx)
+					--				-- Here use ctx.match instead of ctx.file
+					--				client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+					--			end,
+					--		})
+					--end,
+				})
+			end,
+			["jsonls"] = function()
+				lspconfig["jsonls"].setup({
+					capabilities = capabilities,
+					filetypes = { "json" },
+				})
+			end,
+			["tsserver"] = function()
+				lspconfig["tsserver"].setup({
+					capabilities = capabilities,
+					filetypes = { "kson" },
 				})
 			end,
 			["emmet_ls"] = function()
