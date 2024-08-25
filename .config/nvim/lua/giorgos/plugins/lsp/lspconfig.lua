@@ -119,15 +119,15 @@ return {
 				-- configure svelte server
 				lspconfig["svelte"].setup({
 					capabilities = capabilities,
-					--	on_attach = function(client, bufnr)
-					--		vim.api.nvim_create_autocmd("BufWritePost", {
-					--			pattern = { "*.js", "*.ts" },
-					--			callback = function(ctx)
-					--				-- Here use ctx.match instead of ctx.file
-					--				client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-					--			end,
-					--		})
-					--end,
+					on_attach = function(client, bufnr)
+						vim.api.nvim_create_autocmd("BufWritePost", {
+							pattern = { "*.js", "*.ts" },
+							callback = function(ctx)
+								-- Here use ctx.match instead of ctx.file
+								client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+							end,
+						})
+					end,
 				})
 			end,
 			["jsonls"] = function()
@@ -139,7 +139,6 @@ return {
 			["tsserver"] = function()
 				lspconfig["tsserver"].setup({
 					capabilities = capabilities,
-					filetypes = { "kson" },
 				})
 			end,
 			["emmet_ls"] = function()
