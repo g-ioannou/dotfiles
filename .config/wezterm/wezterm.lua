@@ -38,7 +38,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 end)
 
 config.font_size = 20.0
-config.font = wezterm.font_with_fallback({ "FiraCode Nerd Font Mono", "JetBrainsMono NFM" })
+config.font = wezterm.font_with_fallback({ "JetBrainsMono NFM", "FiraCode Nerd Font Mono" })
 
 config.window_padding = {
 	top = 0,
