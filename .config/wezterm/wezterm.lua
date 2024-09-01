@@ -43,8 +43,8 @@ config.font = wezterm.font_with_fallback({ "JetBrainsMono NFM", "FiraCode Nerd F
 config.window_padding = {
 	top = 0,
 	bottom = 0,
-	left = 4,
-	right = 4,
+	left = 0,
+	right = 0,
 }
 
 config.window_background_opacity = 1

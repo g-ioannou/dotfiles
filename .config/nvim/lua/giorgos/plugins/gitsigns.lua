@@ -5,14 +5,14 @@ return {
 		local gitsigns = require("gitsigns")
 
 		gitsigns.setup({
-			signs = {
-				add = { text = "❙" },
 
-				change = { text = "❙" },
+			signs = {
+				add = { text = "｜" },
+				change = { text = "｜" },
 				delete = { text = "_" },
 				topdelete = { text = "‾" },
-				changedelete = { text = "~" },
-				untracked = { text = "❙" },
+				changedelete = { text = "｜" },
+				untracked = { text = "｜" },
 			},
 
 			signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
@@ -45,12 +45,11 @@ return {
 				col = 1,
 			},
 			on_attach = function()
-				--				vim.keymap.set("v", "<leader>ghs", function()
-				--					gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-				--				end)
-				--				vim.keymap.set("v", "<leader>ghu", function()
-				--					gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-				--				end)
+				vim.cmd([[ highlight GitSignsAdd guifg=#9CE588 ]])
+				vim.cmd([[ highlight GitSignsAddLn guibg=#3d4e38 ]])
+
+				vim.cmd([[ highlight GitSignsChange guifg=#4969ed ]])
+				vim.cmd([[ highlight GitSignsChangeLn guibg=#344073 ]])
 			end,
 		})
 
