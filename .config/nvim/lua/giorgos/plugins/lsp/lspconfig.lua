@@ -1,3 +1,7 @@
+local function getPythonPath()
+	return vim.fn.expand("$HOME/.pyenv/shims/python")
+end
+
 return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
@@ -30,6 +34,7 @@ return {
 
 		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
+		vim.env.PYENV_VERSION = vim.fn.system("pyenv version"):match("(%S+)%s+%(.-%)")
 		vim.lsp.handlers["textDocument/signatureHelp"] =
 			vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
@@ -122,6 +127,7 @@ return {
 					on_attach = function(client, bufnr)
 						vim.api.nvim_create_autocmd("BufWritePost", {
 							pattern = { "*.js", "*.ts" },
+							group = vim.api.nvim_create_augroup("svelte_ondidchangetsorjsfile", { clear = true }),
 							callback = function(ctx)
 								-- Here use ctx.match instead of ctx.file
 								client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
@@ -155,6 +161,14 @@ return {
 						"less",
 						"svelte",
 					},
+				})
+			end,
+			["ruff_lsp"] = function()
+				lspconfig["ruff_lsp"].setup({
+					capabilities = capabilities,
+					on_init = function(client)
+						client.config.interpreter = getPythonPath()
+					end,
 				})
 			end,
 			["lua_ls"] = function()

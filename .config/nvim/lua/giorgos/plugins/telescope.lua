@@ -45,7 +45,6 @@ return {
 			})
 
 			local find_files_opts = {
-				cwd = vim.fn.getcwd(),
 				hidden = true,
 				no_ignore = true,
 			}
@@ -53,9 +52,13 @@ return {
 				builtin.find_files(find_files_opts)
 			end, {})
 
-			vim.keymap.set("n", "<leader>s", builtin.live_grep, {})
-
 			vim.keymap.set("n", "<leader>P", builtin.git_files, {})
+
+			vim.keymap.set("n", "<leader>g", builtin.live_grep, {})
+
+			vim.keymap.set("n", "<leader>s", function()
+				builtin.current_buffer_fuzzy_find(require("telescope.themes").get_ivy({ previewer = false }))
+			end, {})
 
 			vim.keymap.set("n", "<C-d>", function()
 				vim.cmd([[vnew]])

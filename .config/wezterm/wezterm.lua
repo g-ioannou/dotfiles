@@ -1,5 +1,4 @@
 local wezterm = require("wezterm")
-local act = wezterm.action
 
 local config = {}
 
@@ -8,6 +7,10 @@ if wezterm.config_builder then
 end
 
 local colors = require("lua/rose-pine").colors()
+
+config.window_decorations = "RESIZE"
+
+config.default_prog = { "/usr/bin/zsh" }
 
 config.colors = colors
 config.audible_bell = "Disabled"
@@ -35,7 +38,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 end)
 
 config.font_size = 20.0
-config.font = wezterm.font_with_fallback({ "JetBrainsMono NFM" })
+config.font = wezterm.font_with_fallback({ "FiraCode Nerd Font Mono", "JetBrainsMono NFM" })
 
 config.window_padding = {
 	top = 0,
@@ -44,9 +47,7 @@ config.window_padding = {
 	right = 4,
 }
 
-config.term = "wezterm"
-
-config.window_background_opacity = 0.80
+config.window_background_opacity = 1
 
 config.macos_window_background_blur = 60
 config.scrollback_lines = 30000
