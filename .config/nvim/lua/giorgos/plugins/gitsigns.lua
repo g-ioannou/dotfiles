@@ -7,14 +7,13 @@ return {
 		gitsigns.setup({
 
 			signs = {
-				add = { text = "｜" },
-				change = { text = "｜" },
+				add = { text = "┃" },
+				change = { text = "┃" },
 				delete = { text = "_" },
 				topdelete = { text = "‾" },
-				changedelete = { text = "｜" },
-				untracked = { text = "｜" },
+				changedelete = { text = "┃" },
+				untracked = { text = "┃" },
 			},
-
 			signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
 			numhl = true, -- Toggle with `:Gitsigns toggle_numhl`
 			linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
@@ -50,6 +49,9 @@ return {
 
 				vim.cmd([[ highlight GitSignsChange guifg=#4969ed ]])
 				vim.cmd([[ highlight GitSignsChangeLn guibg=#344073 ]])
+
+				vim.cmd([[ highlight GitSignsChangeDelete guifg=orange ]])
+				vim.cmd([[ highlight GitSignsChangeDeleteLn guibg=orange ]])
 			end,
 		})
 

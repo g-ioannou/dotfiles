@@ -39,6 +39,8 @@ return {
 			vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
 		vim.diagnostic.config({
+			signs = false,
+			underline = true,
 			float = {
 				border = "rounded",
 			},
@@ -104,11 +106,16 @@ return {
 		-- used to enable autocompletion (assign to every lsp server config)
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 
-		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-		for type, icon in pairs(signs) do
-			local hl = "DiagnosticSign" .. type
-			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+		local hl_groups = { "DiagnosticUnderlineError", "DiagnosticUnderlineWarn" }
+		for _, hl in ipairs(hl_groups) do
+			vim.cmd.highlight(hl .. " gui=undercurl")
 		end
+
+		--	local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+		--	for type, icon in pairs(signs) do
+		--		local hl = "DiagnosticSign" .. type
+		--		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+		--	end
 
 		mason_lspconfig.setup_handlers({
 			-- default handler for installed servers

@@ -10,7 +10,7 @@ local colors = require("lua/rose-pine").colors()
 
 config.window_decorations = "RESIZE"
 
-config.default_prog = { "/usr/bin/zsh" }
+config.default_prog = { "zsh", "-l" }
 
 config.colors = colors
 config.audible_bell = "Disabled"
@@ -47,7 +47,7 @@ config.window_padding = {
 	right = 0,
 }
 
-config.window_background_opacity = 1
+config.window_background_opacity = 0.8
 
 config.macos_window_background_blur = 60
 config.scrollback_lines = 30000

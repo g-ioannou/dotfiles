@@ -5,9 +5,9 @@ pcall(function()
 	vim.keymap.del("n", "<C-w>d")
 end)
 
-vim.keymap.set("n", "<C-w>", vim.cmd.q, { noremap = true })
+vim.keymap.set("n", "<leader>q", vim.cmd.q, { noremap = true })
 
-vim.keymap.set("n", "<C-s>", vim.cmd.w, { noremap = true })
+vim.keymap.set("n", "<leader>w", vim.cmd.w, { noremap = true })
 
 vim.keymap.set("n", "<leader>=", "<C-w>10+")
 vim.keymap.set("n", "<leader>-", "<C-w>10-")

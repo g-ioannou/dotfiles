@@ -48,24 +48,24 @@ return {
 				hidden = true,
 				no_ignore = true,
 			}
-			vim.keymap.set("n", "<leader>p", function()
+			vim.keymap.set("n", "<leader>sp", function()
 				builtin.find_files(find_files_opts)
 			end, {})
 
-			vim.keymap.set("n", "<leader>P", builtin.git_files, {})
+			vim.keymap.set("n", "<leader>sP", builtin.git_files, {})
 
-			vim.keymap.set("n", "<leader>g", builtin.live_grep, {})
+			vim.keymap.set("n", "<leader>ss", builtin.live_grep, {})
 
-			vim.keymap.set("n", "<leader>s", function()
+			vim.keymap.set("n", "<leader>sS", function()
 				builtin.current_buffer_fuzzy_find(require("telescope.themes").get_ivy({ previewer = false }))
 			end, {})
 
-			vim.keymap.set("n", "<C-d>", function()
+			vim.keymap.set("n", "<leader>d", function()
 				vim.cmd([[vnew]])
 				require("telescope.builtin").find_files(find_files_opts)
 			end, { noremap = true })
 
-			vim.keymap.set("n", "<C-a>", function()
+			vim.keymap.set("n", "<leader>a", function()
 				vim.cmd([[new]])
 				require("telescope.builtin").find_files(find_files_opts)
 			end, { noremap = true })
