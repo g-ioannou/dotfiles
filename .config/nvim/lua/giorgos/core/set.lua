@@ -17,6 +17,7 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.signcolumn = "yes"
+vim.opt.statuscolumn = "%=%{v:relnum?v:relnum:v:lnum} %s"
 vim.opt.syntax = "on"
 
 vim.opt.clipboard:append("unnamedplus")
