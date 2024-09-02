@@ -38,14 +38,6 @@ return {
 		vim.lsp.handlers["textDocument/signatureHelp"] =
 			vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
-		vim.diagnostic.config({
-			signs = false,
-			underline = true,
-			float = {
-				border = "rounded",
-			},
-		})
-
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
@@ -116,6 +108,34 @@ return {
 		--		local hl = "DiagnosticSign" .. type
 		--		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		--	end
+
+		vim.diagnostic.config({
+			signs = false,
+			severity_sort = true,
+			virtual_text = {
+				prefix = function(diagnostic)
+					local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+
+					if diagnostic.severity == vim.diagnostic.severity.ERROR then
+						return signs.Error
+					end
+
+					if diagnostic.severity == vim.diagnostic.severity.WARN then
+						return signs.Warn
+					end
+
+					if diagnostic.severity == vim.diagnostic.severity.INFO then
+						return signs.INFO
+					end
+
+					return signs.Hint
+				end,
+			},
+			underline = true,
+			float = {
+				border = "rounded",
+			},
+		})
 
 		mason_lspconfig.setup_handlers({
 			-- default handler for installed servers
