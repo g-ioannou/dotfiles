@@ -60,7 +60,7 @@ return {
 				builtin.current_buffer_fuzzy_find(require("telescope.themes").get_ivy({ previewer = false }))
 			end, {})
 
-			vim.keymap.set("n", "<leader>d", function()
+			vim.keymap.set("n", "<leader>A", function()
 				vim.cmd([[vnew]])
 				require("telescope.builtin").find_files(find_files_opts)
 			end, { noremap = true })
