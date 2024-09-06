@@ -29,8 +29,6 @@ return {
 				"lua_ls",
 				"emmet_ls",
 				"prismals",
-				"pyright",
-				"ruff_lsp",
 			},
 			-- auto-install configured servers (with lspconfig)
 			automatic_installation = true,
@@ -40,9 +38,8 @@ return {
 			ensure_installed = {
 				"prettier", -- prettier formatter
 				"stylua", -- lua formatter
-				"pylint", -- python linter
 				"eslint_d", -- js linter
-				"ruff", -- python formatter
+				"black", -- python formatter
 			},
 		})
 	end,

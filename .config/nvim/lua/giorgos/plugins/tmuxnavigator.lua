@@ -21,16 +21,16 @@ return {
 				default_keymap = true,
 			})
 
-			vim.keymap.set("n", "<C-//>h", function()
+			vim.keymap.set("n", "<M-h>", function()
 				require("ttymux.window").navigate("h")
 			end)
-			vim.keymap.set("n", "<C-//>l", function()
+			vim.keymap.set("n", "<M-l>", function()
 				require("ttymux.window").navigate("l")
 			end)
-			vim.keymap.set("n", "<C-//>j", function()
+			vim.keymap.set("n", "<M-j>", function()
 				require("ttymux.window").navigate("j")
 			end)
-			vim.keymap.set("n", "<C-//>k", function()
+			vim.keymap.set("n", "<M-k>", function()
 				require("ttymux.window").navigate("k")
 			end)
 		end,

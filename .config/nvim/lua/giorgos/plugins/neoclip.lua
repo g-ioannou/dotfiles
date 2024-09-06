@@ -7,7 +7,7 @@ return {
 	config = function()
 		require("neoclip").setup()
 
-		vim.keymap.set("n", "<Leader>v", function()
+		vim.keymap.set("n", "<Leader>sv", function()
 			vim.cmd([[Telescope neoclip]])
 		end, { noremap = true })
 	end,

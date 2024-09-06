@@ -29,14 +29,18 @@ return {
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
+		local win = require("lspconfig.ui.windows")
 		local mason_lspconfig = require("mason-lspconfig")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+		vim.lsp.handlers["textDocument/hover"] =
+			vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", source = "always" })
 
 		vim.env.PYENV_VERSION = vim.fn.system("pyenv version"):match("(%S+)%s+%(.-%)")
 		vim.lsp.handlers["textDocument/signatureHelp"] =
 			vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+
+		win.default_options.border = "rounded"
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -97,6 +101,7 @@ return {
 
 		-- used to enable autocompletion (assign to every lsp server config)
 		local capabilities = cmp_nvim_lsp.default_capabilities()
+		capabilities = vim.lsp.protocol.make_client_capabilities()
 
 		local hl_groups = { "DiagnosticUnderlineError", "DiagnosticUnderlineWarn" }
 		for _, hl in ipairs(hl_groups) do
@@ -134,18 +139,40 @@ return {
 			underline = true,
 			float = {
 				border = "rounded",
+				source = true,
+				update_in_insert = true,
+				severity_sort = true,
 			},
 		})
+
+		mason_lspconfig.setup({
+			ensure_installed = {
+				"tsserver",
+				"html",
+				"cssls",
+				"svelte",
+				"lua_ls",
+				"emmet_ls",
+				"prismals",
+				"pyright",
+			},
+			-- auto-install configured servers (with lspconfig)
+			automatic_installation = true,
+		})
+
+		local function on_attach(client, bufnr)
+			if client.server_capabilities.inlayHintProvider then
+				vim.lsp.inlay_hint.enable(true)
+			end
+		end
 
 		mason_lspconfig.setup_handlers({
 			-- default handler for installed servers
 			function(server_name)
 				lspconfig[server_name].setup({
+					on_attach = on_attach,
 					capabilities = capabilities,
 				})
-			end,
-			["tailwindcss"] = function()
-				lspconfig["tailwindcss"].setup({ capabilities = capabilities })
 			end,
 			["svelte"] = function()
 				-- configure svelte server
@@ -160,18 +187,8 @@ return {
 								client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
 							end,
 						})
+						on_attach(client, bufnr)
 					end,
-				})
-			end,
-			["jsonls"] = function()
-				lspconfig["jsonls"].setup({
-					capabilities = capabilities,
-					filetypes = { "json" },
-				})
-			end,
-			["tsserver"] = function()
-				lspconfig["tsserver"].setup({
-					capabilities = capabilities,
 				})
 			end,
 			["emmet_ls"] = function()
@@ -190,17 +207,21 @@ return {
 					},
 				})
 			end,
-			["ruff_lsp"] = function()
-				lspconfig["ruff_lsp"].setup({
+			["pyright"] = function()
+				lspconfig["pyright"].setup({
+					on_attach = on_attach,
 					capabilities = capabilities,
-					on_init = function(client)
-						client.config.interpreter = getPythonPath()
-					end,
+					pyright = {
+						diagnostiMode = "workspace",
+						autoSearchPaths = "true",
+						useLibraryCodeForTypes = true,
+					},
 				})
 			end,
 			["lua_ls"] = function()
 				-- configure lua server (with special settings)
 				lspconfig["lua_ls"].setup({
+					on_attach = on_attach,
 					capabilities = capabilities,
 					settings = {
 						Lua = {

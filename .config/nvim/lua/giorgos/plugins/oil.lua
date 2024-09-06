@@ -85,7 +85,7 @@ return {
 			oil.setup({
 				default_file_explorer = true,
 				keymaps = {
-					["<C-w>"] = "actions.close",
+					["<Esc>"] = "actions.close",
 					["<C-d>"] = "actions.select_vsplit",
 					["<C-a>"] = "actions.select_split",
 					["<C-t>"] = "actions.toggle_trash",

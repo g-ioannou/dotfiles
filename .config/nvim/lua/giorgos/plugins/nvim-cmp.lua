@@ -9,6 +9,7 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		"L3MON4D3/LuaSnip",
 		"saadparwaiz1/cmp_luasnip",
+		"lukas-reineke/cmp-under-comparator",
 		"rafamadriz/friendly-snippets",
 		"onsails/lspkind.nvim",
 	},
@@ -20,10 +21,13 @@ return {
 
 		cmp.setup({
 			formatting = {
+				fields = { "abbr", "kind", "menu" },
+				expandable_indicator = true,
 				format = lspkind.cmp_format({
 					mode = "symbol_text",
 					max_width = 50,
 					show_labelDetails = true,
+
 					elipsis_char = "...",
 					menu = {
 						luasnip = "[snip]",
@@ -57,13 +61,24 @@ return {
 				["<CR>"] = cmp.mapping.confirm({ select = false }),
 			}),
 			sources = cmp.config.sources({
-				{ name = "nvim_lsp", priority = 100 },
-				{ name = "buffer", max_item_count = 4, priority = 60 },
+				{ name = "buffer", max_item_count = 4, priority = 99 },
+				{ name = "nvim_lsp", max_item_count = 4, priority = 98 },
 				{ name = "path", max_item_count = 4, priority = 50 },
-				{ name = "luasnip", max_item_count = 1, priority = 1, keyword_length = 3 },
+				{ name = "luasnip", max_item_count = 4, priority = 1, keyword_length = 3 },
 			}),
 			sorting = {
 				priority_weight = 100000,
+				comparators = {
+					cmp.config.compare.recently_used,
+					cmp.config.compare.offset,
+					cmp.config.compare.exact,
+					cmp.config.compare.score,
+					require("cmp-under-comparator").under,
+					cmp.config.compare.sort_text,
+					cmp.config.compare.length,
+					cmp.config.compare.kind,
+					cmp.config.compare.order,
+				},
 			},
 			window = {
 				completion = {
