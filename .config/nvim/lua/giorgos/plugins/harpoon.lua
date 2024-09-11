@@ -44,26 +44,23 @@ return {
 		end
 
 		vim.keymap.set("n", "<leader>h", function()
-			harpoon.ui:toggle_quick_menu(
-				harpoon:list(),
-				{
-					title = "Pinned buffers",
-					title_pos = "center",
-					border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-				}
-			)
+			harpoon.ui:toggle_quick_menu(harpoon:list(), {
+				title = "Pinned buffers",
+				title_pos = "center",
+				border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+			})
 		end)
 
 		--	vim.keymap.set("n", "<leader>h", function()
 		--		toggle_telescope(harpoon:list())
 		--	end)
 
-		vim.keymap.set("n", "<leader>n", function()
+		vim.keymap.set("n", "<leader>hp", function()
 			harpoon:list():append()
 			print("Buffer added to Harpoon")
 		end)
 
-		vim.keymap.set("n", "<leader>f", function()
+		vim.keymap.set("n", "<leader>hh", function()
 			toggle_telescope(harpoon:list())
 		end)
 

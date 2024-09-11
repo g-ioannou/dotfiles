@@ -18,4 +18,19 @@ return {
 			require("log-highlight").setup({})
 		end,
 	},
+	{
+		"echasnovski/mini.trailspace",
+		version = "*",
+		config = function()
+			require("mini.trailspace").setup({ only_in_normal_buffers = true })
+		end,
+	},
+	{
+		"echasnovski/mini.surround",
+		version = "*",
+		event = "VeryLazy",
+		config = function()
+			require("mini.surround").setup({})
+		end,
+	},
 }
