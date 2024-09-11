@@ -1,12 +1,10 @@
 return {
 	"williamboman/mason.nvim",
 	dependencies = {
-		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 	},
 	config = function()
 		local mason = require("mason")
-		local mason_lspconfig = require("mason-lspconfig")
 		local mason_tool_installer = require("mason-tool-installer")
 
 		mason.setup({
@@ -18,20 +16,6 @@ return {
 					package_uninstalled = "✗",
 				},
 			},
-		})
-
-		mason_lspconfig.setup({
-			ensure_installed = {
-				"ts_ls",
-				"html",
-				"cssls",
-				"svelte",
-				"lua_ls",
-				"emmet_ls",
-				"prismals",
-			},
-			-- auto-install configured servers (with lspconfig)
-			automatic_installation = true,
 		})
 
 		mason_tool_installer.setup({
