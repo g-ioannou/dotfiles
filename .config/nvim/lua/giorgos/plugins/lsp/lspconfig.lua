@@ -91,7 +91,7 @@ local function setupLSPHandlers(capabilities)
 	local lspconfig = require("lspconfig")
 	local mason_lspconfig = require("mason-lspconfig")
 
-	local function on_attach(client)
+	local function on_attach(client, bufnr)
 		if client.server_capabilities.inlayHintProvider then
 			vim.lsp.inlay_hint.enable(true)
 		end
@@ -194,7 +194,8 @@ local function configureKeybinds()
 			opts.desc = "Go to lsp definition in horizontal split"
 			vim.keymap.set("n", "gA", "<cmd>vsp<CR><cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions in new vertical split
 
-			vim.keymap.set("n", "<leader>qf", vim.diagnostic.setloclist, { desc = "Open diagnostic quickfix list" })
+			opts.desc = "Open diagnostic quickfix list"
+			vim.keymap.set("n", "<leader>qf", vim.diagnostic.setloclist)
 
 			opts.desc = "Show LSP implementations"
 			vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations

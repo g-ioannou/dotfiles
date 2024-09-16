@@ -30,7 +30,6 @@ vim.opt.swapfile = false
 vim.opt.backspace = "indent,eol,start"
 
 vim.opt.scrolloff = 10
-vim.opt.cmdheight = 0
 
 vim.opt.lcs = { lead = "·", trail = "a" }
 vim.opt.cursorline = true
