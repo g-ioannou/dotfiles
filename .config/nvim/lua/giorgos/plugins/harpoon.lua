@@ -60,7 +60,7 @@ return {
 			print("Buffer added to Harpoon")
 		end)
 
-		vim.keymap.set("n", "<leader>hh", function()
+		vim.keymap.set("n", "<leader>sh", function()
 			toggle_telescope(harpoon:list())
 		end)
 
