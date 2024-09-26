@@ -43,7 +43,7 @@ return {
 				row = 0,
 				col = 1,
 			},
-			on_attach = function()
+			on_attach = function(bufnr)
 				vim.cmd([[ highlight GitSignsAdd guifg=#9CE588 ]])
 				vim.cmd([[ highlight GitSignsAddLn guibg=#3d4e38 ]])
 
@@ -52,6 +52,38 @@ return {
 
 				vim.cmd([[ highlight GitSignsChangeDelete guifg=orange ]])
 				vim.cmd([[ highlight GitSignsChangeDeleteLn guibg=orange ]])
+
+				local function map(mode, l, r, opts)
+					opts = opts or {}
+					opts.buffer = bufnr
+					vim.keymap.set(mode, l, r, opts)
+				end
+
+				-- Navigation
+				map("n", "]h", function()
+					if vim.wo.diff then
+						vim.cmd.normal({ "]h", bang = true })
+					else
+						gitsigns.nav_hunk("next")
+					end
+				end)
+
+				map("n", "[h", function()
+					if vim.wo.diff then
+						vim.cmd.normal({ "[h", bang = true })
+					else
+						gitsigns.nav_hunk("prev")
+					end
+				end)
+
+				map("n", "<leader>hs", gitsigns.stage_hunk)
+				map("n", "<leader>hr", gitsigns.undo_stage_hunk)
+				map("v", "<leader>hs", function()
+					gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+				end)
+				map("v", "<leader>hr", function()
+					gitsigns.undo_stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+				end)
 			end,
 		})
 

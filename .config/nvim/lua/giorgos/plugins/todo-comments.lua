@@ -6,7 +6,7 @@ return {
 		-- or leave it empty to use the default settings
 		-- refer to the configuration section below
 		highlight = {
-			pattern = [[.*<(KEYWORDS)\s*]],
+			pattern = [[.*<(KEYWORDS)\s*:]],
 		},
 		search = {
 			command = "rg",
@@ -24,7 +24,7 @@ return {
 		require("todo-comments").setup(opts)
 
 		vim.keymap.set("n", "<leader>c", function()
-			vim.cmd([[TodoTelescope keywords=TODO]])
+			vim.cmd([[TodoTelescope]])
 		end)
 	end,
 }

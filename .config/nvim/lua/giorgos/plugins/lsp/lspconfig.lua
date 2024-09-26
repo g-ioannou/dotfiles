@@ -105,6 +105,13 @@ local function setupLSPHandlers(capabilities)
 				capabilities = capabilities,
 			})
 		end,
+		["ts_ls"] = function()
+			lspconfig["ts_ls"].setup({
+				capabilities = capabilities,
+				on_attach = on_attach,
+				settings = { implicitProjectConfiguration = { checkJs = true } },
+			})
+		end,
 		["svelte"] = function()
 			-- configure svelte server
 			lspconfig["svelte"].setup({
