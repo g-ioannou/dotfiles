@@ -1,9 +1,11 @@
+vim.g.enable_autoformat = false
+
 vim.api.nvim_create_user_command("FormatDisable", function(args)
 	if args.bang then
 		-- FormatDisable! will disable formatting just for this buffer
-		vim.b.disable_autoformat = true
+		vim.b.enable_autoformat = false
 	else
-		vim.g.disable_autoformat = true
+		vim.g.enable_autoformat = false
 	end
 end, {
 	desc = "Disable autoformat-on-save",
@@ -11,7 +13,7 @@ end, {
 })
 
 vim.api.nvim_create_user_command("FormatEnable", function()
-	vim.g.disable_autoformat = false
+	vim.g.enable_autoformat = true
 end, {
 	desc = "Re-enable autoformat-on-save",
 })
@@ -40,11 +42,10 @@ return {
 				python = { "isort", "black" },
 			},
 			format_on_save = function(bufnr)
-				-- Disable with a global or buffer-local variable
-				if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-					return
+				-- Enable with a global or buffer-local variable
+				if vim.g.enable_autoformat or vim.b[bufnr].enable_autoformat then
+					return { timeout_ms = 500, lsp_fallback = true }
 				end
-				return { timeout_ms = 500, lsp_fallback = true }
 			end,
 		})
 
